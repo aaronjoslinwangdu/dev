@@ -1,0 +1,31 @@
+# appearance
+theme = kanagawa wave
+font-family = Iosevka
+font-size = 20
+font-feature = -calt, -liga, -dlig
+mouse-hide-while-typing = true
+macos-titlebar-proxy-icon = hidden
+title = ""
+
+# cursor
+cursor-style = block
+cursor-invert-fg-bg = true
+
+# mac
+macos-option-as-alt = true
+
+# updates
+auto-update = download
+auto-update-channel = stable
+
+# window
+window-decoration = true
+window-padding-x = 2
+window-padding-y = 2
+window-padding-balance = true
+window-save-state = always
+
+# extra
+copy-on-select = clipboard
+focus-follows-mouse = true
+link-url = true

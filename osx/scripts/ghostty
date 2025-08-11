@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if ! command -v ghostty &> /dev/null; then
+  brew install --cask ghostty
+fi

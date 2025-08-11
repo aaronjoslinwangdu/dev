@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+if ! command -v brew &> /dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+  echo "brew already installed"
+fi
+
+if ! command -v git &> /dev/null; then
+  brew install git 
+else
+  echo "git already installed"
+fi
+
+if [ ! -d $HOME/personal ]; then
+  mkdir $HOME/personal
+  git clone https://www.github.com/aaronjoslinwangdu/env $HOME/personal/env
+fi
+
+if ! command -v xcode-select &> /dev/null; then
+  xcode-select --install
+else
+  echo "xcode-select already installed"
+fi
+
+pushd $HOME/personal/env
+./run
+popd

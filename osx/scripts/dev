@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+brew install ripgrep
+brew install jq
+brew install fzf
+brew install htop
