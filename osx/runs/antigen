@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+pushd $HOME/personal > /dev/null
+curl -L git.io/antigen > antigen.zsh
+popd > /dev/null

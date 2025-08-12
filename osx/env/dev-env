@@ -49,5 +49,31 @@ copy_file() {
   execute cp $from $to/$name
 }
 
+append_or_copy_file() {
+  from=$1
+  to=$2
+  name=$(basename $from)
+
+  target=$to/$name
+  start=$(head -n 1 "$from")
+  end=$(tail -n 1 "$from")
+  log $start
+  log $end
+
+  if [ -f "$target" ] && rg -Fxq "$start" "$target" && rg -Fxq "$end" "$target"; then
+    tmp=$(mktemp)
+    sed "/^$start$/,/^$end$/d" "$target" > "$tmp"
+    {
+      echo "$start"
+      tail -n +2 "$from" | head -n -1
+      echo "$end"
+    } >> "$tmp"
+    execute mv "$tmp" "$target"
+  else
+    execute cp $from $target
+  fi
+}
+
 copy_dir .config ~/.config
-copy_dir .hammerspoon ~
+copy_file .tmux.conf ~
+append_or_copy_file .zshrc ~

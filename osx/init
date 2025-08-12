@@ -14,7 +14,7 @@ fi
 
 if [ ! -d $HOME/personal ]; then
   mkdir $HOME/personal
-  git clone https://www.github.com/aaronjoslinwangdu/env $HOME/personal/env
+  git clone https://www.github.com/aaronjoslinwangdu/dev $HOME/personal/dev
 fi
 
 if ! command -v xcode-select &> /dev/null; then
@@ -23,6 +23,6 @@ else
   echo "xcode-select already installed"
 fi
 
-pushd $HOME/personal/env
+pushd $HOME/personal/dev
 ./run
 popd
