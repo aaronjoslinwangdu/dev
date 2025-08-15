@@ -85,3 +85,13 @@ copy_dir .hammerspoon ~
 replace_and_append_delimited_file .zshrc ~
 
 popd > /dev/null
+
+echo ""
+echo "Done! To ensure that changes in dotfiles are active, do the following:"
+echo ""
+echo "  - tmux kill-server"
+echo "  - source ~/.zshrc"
+echo "  - cmd + shift + comma to reload ghostty config"
+echo "  - open hammerspoon and reload config"
+echo "  - open rectangle and import config [todo: do this programatically]"
+echo ""
