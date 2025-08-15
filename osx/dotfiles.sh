@@ -93,5 +93,5 @@ echo "  - tmux kill-server"
 echo "  - source ~/.zshrc"
 echo "  - cmd + shift + comma to reload ghostty config"
 echo "  - open hammerspoon and reload config"
-echo "  - open rectangle and import config [todo: do this programatically]"
+echo "  - open rectangle and import config" # todo: do this programatically
 echo ""
