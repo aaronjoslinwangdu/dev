@@ -32,11 +32,13 @@ copy_dir() {
   to=$2
 
   pushd $from > /dev/null
+
   dirs=$(find . -mindepth 1 -maxdepth 1 -type d)
   for dir in $dirs; do
     execute rm -rf $to/$dir
     execute cp -r $dir $to/$dir
   done
+
   popd > /dev/null
 }
 
@@ -75,7 +77,11 @@ replace_and_append_delimited_file() {
   fi
 }
 
+pushd $HOME/personal/dev/osx/dotfiles > /dev/null
+
 copy_dir .config ~/.config
 copy_file .tmux.conf ~
 copy_dir .hammerspoon ~
 replace_and_append_delimited_file .zshrc ~
+
+popd > /dev/null

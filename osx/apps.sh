@@ -32,7 +32,7 @@ execute() {
 }
 
 cd $script_dir
-scripts=$(find ./runs -maxdepth 1 -mindepth 1 -perm "$EXECUTABLE" -type f)
+scripts=$(find ./apps -maxdepth 1 -mindepth 1 -perm "$EXECUTABLE" -type f)
 
 for script in $scripts; do
   if echo "$script" | grep -qv "$filter"; then

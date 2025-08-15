@@ -15,6 +15,7 @@ fi
 if [ ! -d $HOME/personal ]; then
   mkdir $HOME/personal
   git clone https://www.github.com/aaronjoslinwangdu/dev $HOME/personal/dev
+  echo "created $HOME/personal/dev"
 fi
 
 if ! command -v xcode-select &> /dev/null; then
@@ -24,5 +25,6 @@ else
 fi
 
 pushd $HOME/personal/dev/osx > /dev/null
-./run
-popd
+./apps.sh
+./dotfiles.sh
+popd > /dev/null
