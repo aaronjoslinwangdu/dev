@@ -23,6 +23,6 @@ else
   echo "xcode-select already installed"
 fi
 
-pushd $HOME/personal/dev
+pushd $HOME/personal/dev/osx > /dev/null
 ./run
 popd

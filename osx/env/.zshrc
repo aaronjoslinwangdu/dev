@@ -1,4 +1,4 @@
-# personal config start
+# --- dev-env config start ---
 
 # git info
 autoload -Uz vcs_info
@@ -16,12 +16,10 @@ export LS_COLORS="cxfxcxdxbxegedabagacadah"
 # aliases
 alias lg='lazygit'
 alias ls="ls --color=always"
-alias tmuxd="tmux new-session -A -t dev"
 
 # zsh plugins
 source $HOME/personal/antigen.zsh
-antigen bundle jeffreytse/zsh-vi-mode > /dev/null
-antigen bundle zsh-users/zsh-autosuggestions > /dev/null
+antigen bundle jeffreytse/zsh-vi-mode
 antigen apply
 
-# personal config end
+# --- dev-env config end ---

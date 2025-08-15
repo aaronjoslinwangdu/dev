@@ -49,31 +49,33 @@ copy_file() {
   execute cp $from $to/$name
 }
 
-append_or_copy_file() {
+replace_and_append_delimited_file() {
   from=$1
   to=$2
   name=$(basename $from)
+  out=$to/$name
 
-  target=$to/$name
-  start=$(head -n 1 "$from")
-  end=$(tail -n 1 "$from")
-  log $start
-  log $end
+  if [[ -f $out ]]; then
+    delim_start="# --- dev-env config start ---"
+    delim_end="# --- dev-env config end ---"
 
-  if [ -f "$target" ] && rg -Fxq "$start" "$target" && rg -Fxq "$end" "$target"; then
-    tmp=$(mktemp)
-    sed "/^$start$/,/^$end$/d" "$target" > "$tmp"
-    {
-      echo "$start"
-      tail -n +2 "$from" | head -n -1
-      echo "$end"
-    } >> "$tmp"
-    execute mv "$tmp" "$target"
-  else
-    execute cp $from $target
+    start=$(grep -n "^$delim_start" "$out" | sed -En 's/^([0-9]+):.*/\1/p')
+    end=$(grep -n "^$delim_end" "$out" | sed -En 's/^([0-9]+):.*/\1/p')
+
+    if [[ -n $start && -n $end && $start -lt $end ]]; then
+      log "config section found, creating $out.bkp and overwriting $out"
+      execute sed -i.bkp "$start,${end}d" "$out"
+    fi
+  fi
+
+  log "appending config section to $out"
+  if [[ $dry == "0" ]]; then
+    # can't use execute here because the execute output gets sent to $out??
+    cat "$name" >> "$out"
   fi
 }
 
 copy_dir .config ~/.config
 copy_file .tmux.conf ~
-append_or_copy_file .zshrc ~
+copy_dir .hammerspoon ~
+replace_and_append_delimited_file .zshrc ~
