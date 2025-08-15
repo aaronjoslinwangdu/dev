@@ -12,8 +12,10 @@ else
   echo "git already installed"
 fi
 
-if [ ! -d $HOME/personal ]; then
-  mkdir $HOME/personal
+if [ ! -d $HOME/personal/dev ]; then
+  if [ ! -d $HOME/personal ]; then
+    mkdir $HOME/personal
+  fi
   git clone https://www.github.com/aaronjoslinwangdu/dev $HOME/personal/dev
   echo "created $HOME/personal/dev"
 fi
