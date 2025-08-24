@@ -19,6 +19,7 @@ return {
 					json = { "prettierd", "prettier" },
 					markdown = { "prettierd", "prettier" },
 					sh = { "shfmt" },
+          go = { "goimports", "gofumpt" },
 				},
 			})
 

@@ -11,6 +11,7 @@ return {
 				"ts_ls",
 				"html",
 				"cssls",
+        "gopls",
 			},
 			automatic_installation = true,
 		},
@@ -33,6 +34,7 @@ return {
 					"eslint",
 					"astro",
 					"cssls",
+          "gopls",
 				},
 				automatic_installation = true,
 			})
@@ -109,6 +111,11 @@ return {
 				capabilities = capabilities,
 				handlers = handlers,
 			})
+
+      lspconfig.gopls.setup({
+				capabilities = capabilities,
+				handlers = handlers,
+      })
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 		end,
