@@ -42,5 +42,6 @@ return {
 		map("n", "<leader>ca", fzf.lsp_code_actions)
 		map("n", "fu", fzf.lsp_references)
 		map("n", "gd", fzf.lsp_definitions)
+    map("n", "gt", fzf.lsp_typedefs)
 	end,
 }
