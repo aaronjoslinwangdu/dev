@@ -20,6 +20,7 @@ return {
 					markdown = { "prettierd", "prettier" },
 					sh = { "shfmt" },
           go = { "goimports", "gofumpt" },
+          elixir = { "mix" },
 				},
 			})
 
