@@ -74,6 +74,10 @@ return {
 					},
 				},
 				[LSP.PYTHON] = {
+					root_markers = {
+						"pyrightconfig.json",
+						"pyproject.toml",
+					},
 					settings = {
 						pyright = {
 							disableOrganizeImports = true,
