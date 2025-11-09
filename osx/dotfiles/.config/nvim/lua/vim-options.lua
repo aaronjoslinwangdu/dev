@@ -21,14 +21,20 @@ end)
 
 vim.keymap.set("n", "<leader>Q", vim.cmd.copen, { silent = true })
 vim.keymap.set("n", "<leader>q", vim.cmd.cclose, { silent = true })
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Esc>", vim.cmd.nohlsearch, { silent = true })
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
-vim.keymap.set("n", "<leader>e", ":lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { noremap = true, silent = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true })
 vim.keymap.set("n", "n", "nzzzv", { noremap = true })
 vim.keymap.set("n", "N", "Nzzzv", { noremap = true })
-vim.keymap.set("x", "<leader>p", "\"_dP", { noremap = true })
+vim.keymap.set("x", "<leader>p", '"_dP', { noremap = true })
+
+-- yank relative path from home directory
+vim.keymap.set("n", "<leader>yp", function()
+	local filepath = vim.fn.expand("%:~") -- current path relative to home directory
+	vim.fn.setreg("+", filepath) -- insert into the clipboard register
+end, { noremap = true, silent = true })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
