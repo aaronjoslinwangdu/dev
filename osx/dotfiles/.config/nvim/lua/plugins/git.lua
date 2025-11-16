@@ -21,21 +21,4 @@ return {
 			map("n", "<leader>gh", gitsigns.preview_hunk_inline)
 		end,
 	},
-	{
-		"kdheepak/lazygit.nvim",
-		lazy = true,
-		cmd = {
-			"LazyGit",
-			"LazyGitConfig",
-			"LazyGitCurrentFile",
-			"LazyGitFilter",
-			"LazyGitFilterCurrentFile",
-		},
-		-- dependencies = {
-		-- 	"nvim-lua/plenary.nvim",
-		-- },
-		keys = {
-			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
-		},
-	},
 }
