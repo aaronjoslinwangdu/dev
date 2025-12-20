@@ -14,6 +14,7 @@ vim.opt.smartcase = true
 vim.opt.splitright = true
 vim.opt.confirm = true
 vim.opt.scrolloff = 10
+vim.opt.guicursor = ""
 
 vim.schedule(function()
 	vim.opt.clipboard = "unnamedplus"
