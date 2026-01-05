@@ -15,7 +15,6 @@ return {
 					javascriptreact = { "prettierd", "prettier" },
 					typescript = { "prettierd", "prettier" },
 					typescriptreact = { "prettierd", "prettier" },
-					astro = { "prettierd", "prettier" },
 					json = { "prettierd", "prettier" },
 					markdown = { "prettierd", "prettier" },
 					sh = { "shfmt" },

@@ -21,4 +21,7 @@ return {
 			map("n", "<leader>gh", gitsigns.preview_hunk_inline)
 		end,
 	},
+  {
+    "tpope/vim-fugitive",
+  }
 }

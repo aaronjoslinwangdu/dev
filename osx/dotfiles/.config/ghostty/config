@@ -1,7 +1,7 @@
 # appearance
 theme = kanagawa wave
 font-family = Iosevka
-font-size = 20
+font-size = 28
 font-feature = -calt, -liga, -dlig
 mouse-hide-while-typing = true
 macos-titlebar-proxy-icon = hidden
@@ -26,6 +26,7 @@ window-padding-balance = true
 window-save-state = always
 
 # extra
+shell-integration = zsh
 copy-on-select = clipboard
 focus-follows-mouse = true
 link-url = true

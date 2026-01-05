@@ -95,7 +95,6 @@ return {
 					end,
 				},
 				[LSP.ELIXIR] = {
-					cmd = { "/opt/homebrew/Cellar/elixir-ls/0.29.3/libexec/language_server.sh" }, -- this kinda sucks
 					flags = {
 						debounce_text_changes = 150,
 					},
