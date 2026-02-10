@@ -1,0 +1,76 @@
+" settings "
+set relativenumber
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set ideajoin
+
+" disable error sfx "
+set visualbell
+set noerrorbells
+
+" support for vim commenting "
+set commentary
+
+" yank to clipboard "
+set clipboard+=unnamedplus
+
+" plugin configs "
+set highlightedyank
+let g:highlightedyank_highlight_duration = "200"
+let g:highlightedyank_highlight_color = "rgba(5, 140, 255, 80)"
+
+" leader "
+map <space> <leader>
+
+" remaps "
+map <C-u> <C-u>zz
+map <C-d> <C-d>zz
+map n nzzzv
+map N Nzzzv
+
+" git "
+map <leader>gb  <Action>(Annotate)
+map <leader>gd  <Action>(CompareWithLatestRepositoryVersion)
+map <leader>gh  <Action>(ShowDiff)
+
+" search "
+map <leader>sr  <Action>(RecentFiles)
+map <leader>sg  <Action>(TextSearchAction)
+map <leader>se  <Action>(SearchEverywhere)
+map <leader>sf  <Action>(GotoFile)
+map <leader>sa  <Action>(GotoAction)
+map <leader>sc  <Action>(GotoClass)
+map <leader>ss  <Action>(GotoSymbol)
+map <leader>fu  <Action>(FindUsages)
+
+" tool windows "
+map <leader>zz      <Action>(ToggleDistractionFreeMode)
+map <leader><Esc>   <Action>(HideAllWindows)
+
+" diagnostics "
+map <leader>ca      <Action>(ShowIntentionActions)
+map <leader>e       <Action>(ShowErrorDescription)
+map +               <Action>(ExpandRegion)
+map -               <Action>(CollapseRegion)
+
+" replacements "
+map <leader>rn      <Action>(RenameElement)
+map <leader>rp      <Action>(ReplaceInPath)
+map <leader>fp      <Action>(FindInPath)
+map <leader>f       <Action>(ReformatCode)
+
+" gotos "
+map gd  <Action>(GotoDeclaration)
+map gt  <Action>(GotoTypeDeclaration)
+map gi  <Action>(GotoImplementation)
+map gs  <Action>(GotoSuperMethod)
+
+" run "
+map <leader>rr  <Action>(RunClass)<Action>(ActivateRunToolWindow)
+
+" misc "
+map <leader>rc  <Action>(IdeaVim.ReloadVimRc.reload)
+map <leader>rf  <Action>(SynchronizeCurrentFile)
+map <leader>yp  <Action>(CopyAbsolutePath)
