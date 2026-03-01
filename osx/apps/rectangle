@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-if [ ! -e /Applications/Rectangle.app ]; then
-  brew install --cask rectangle
-fi

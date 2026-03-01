@@ -5,22 +5,20 @@ dry="0"
 while [[ $# -gt 0 ]]; do
   if [[ $1 == "--dry" ]]; then
     dry="1"
-  else
-    filter="$1"
   fi
   shift
 done
 
 log() {
   if [[ $dry == "1" ]]; then
-    echo "[DRY RUN]: $@"
+    echo "[DRY RUN]: $*"
   else
     echo "$@"
   fi
 }
 
 execute() {
-  log "executing $@"
+  log "executing $*"
   if [[ $dry == "1" ]]; then
     return
   fi
@@ -31,30 +29,30 @@ copy_dir() {
   from=$1
   to=$2
 
-  pushd $from > /dev/null
+  pushd "$from" > /dev/null || exit
 
   dirs=$(find . -mindepth 1 -maxdepth 1 -type d)
   for dir in $dirs; do
-    execute rm -rf $to/$dir
-    execute cp -r $dir $to/$dir
+    execute rm -rf "$to"/"$dir"
+    execute cp -r "$dir" "$to"/"$dir"
   done
 
-  popd > /dev/null
+  popd > /dev/null || exit
 }
 
 copy_file() {
   from=$1
   to=$2
-  name=$(basename $from)
+  name=$(basename "$from")
 
-  execute rm $to/$name
-  execute cp $from $to/$name
+  execute rm "$to"/"$name"
+  execute cp "$from" "$to"/"$name"
 }
 
 replace_and_append_delimited_file() {
   from=$1
   to=$2
-  name=$(basename $from)
+  name=$(basename "$from")
   out=$to/$name
 
   if [[ -f $out ]]; then
@@ -77,21 +75,25 @@ replace_and_append_delimited_file() {
   fi
 }
 
-pushd $HOME/personal/dev/osx/dotfiles > /dev/null
 
+pushd "$HOME"/personal/dev/osx/dotfiles > /dev/null || exit
+
+echo "===== dotfiles.sh ====="
 copy_dir .config ~/.config
 copy_file .tmux.conf ~
 copy_dir .hammerspoon ~
 replace_and_append_delimited_file .zshrc ~
 
-popd > /dev/null
+popd > /dev/null || exit
 
-echo ""
-echo "Done! To ensure that changes in dotfiles are active, do the following:"
-echo ""
-echo "  - tmux kill-server"
-echo "  - source ~/.zshrc"
-echo "  - cmd + shift + comma to reload ghostty config"
-echo "  - open hammerspoon and reload config"
-echo "  - open rectangle and import config" # todo: do this programatically
-echo ""
+if [[ $dry == "0" ]]; then
+  echo ""
+  echo "To ensure that changes in dotfiles are active, do the following:"
+  echo ""
+  echo "  - tmux kill-server"
+  echo "  - source ~/.zshrc"
+  echo "  - cmd + shift + comma to reload ghostty config"
+  echo "  - open hammerspoon and reload config"
+  echo "  - open rectangle and import config" # TODO: do this programmatically
+  echo ""
+fi

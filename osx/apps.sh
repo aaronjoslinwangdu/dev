@@ -1,43 +1,61 @@
 #!/usr/bin/env bash
 
-EXECUTABLE="+0111"
-script_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
-filter=""
+declare -a CLI=(
+  "ripgrep"
+  "jq"
+  "fzf"
+  "htop"
+  "tmux"
+  "neovim"
+  "lazygit"
+  "antigen"
+)
+
+declare -a GUI=(
+  "ghostty"
+  "rectangle"
+  "hammerspoon"
+  "font-iosevka"
+)
+
 dry="0"
+uninstall="0"
 
 while [[ $# -gt 0 ]]; do
-  if [[ $1 == "--dry" ]]; then
-    dry="1"
-  else
-    filter="$1"
-  fi
+  case "$1" in
+    --dry) dry="1" ;;
+    --uninstall) uninstall="1" ;;
+  esac
   shift
 done
 
+action="install"
+if [[ $uninstall == "1" ]]; then
+  action="uninstall"
+fi
+
 log() {
-  echo ""
   if [[ $dry == "1" ]]; then
-    echo "[DRY RUN]: $@"
+    echo "[DRY RUN]: $*"
   else
     echo "$@"
   fi
 }
 
 execute() {
-  log "executing $@"
+  log "executing $*"
   if [[ $dry == "1" ]]; then
     return
   fi
   "$@"
 }
 
-cd $script_dir
-scripts=$(find ./apps -maxdepth 1 -mindepth 1 -perm "$EXECUTABLE" -type f)
+echo "===== apps.sh ====="
 
-for script in $scripts; do
-  if echo "$script" | grep -qv "$filter"; then
-    log "filtering $script"
-    continue
-  fi
-  execute ./$script
+for app in "${CLI[@]}"; do
+  execute brew "$action" "$app"
+done
+
+for app in "${GUI[@]}"; do
+  execute brew "$action" "$app" --cask
 done
