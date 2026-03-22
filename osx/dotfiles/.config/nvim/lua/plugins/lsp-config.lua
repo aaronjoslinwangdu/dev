@@ -19,10 +19,6 @@ local SERVERS = utils.values(LSP)
 return {
 	{
 		"williamboman/mason.nvim",
-		opts = {
-			ensure_installed = SERVERS,
-			automatic_installation = true,
-		},
 		config = function()
 			require("mason").setup()
 		end,
@@ -31,8 +27,10 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = SERVERS,
-				automatic_installation = true,
+				ensure_installed = {
+          LSP.VIM,
+          LSP.LUA,
+        },
 			})
 		end,
 	},

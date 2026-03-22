@@ -18,7 +18,7 @@ alias lg='lazygit'
 alias ls="ls --color=always"
 
 # zsh plugins
-source $HOME/personal/antigen.zsh
+source $(brew --prefix)/share/antigen/antigen.zsh
 antigen bundle jeffreytse/zsh-vi-mode
 antigen apply
 

@@ -1,7 +1,7 @@
 # appearance
 theme = kanagawa wave
 font-family = Iosevka
-font-size = 28
+font-size = 24
 font-feature = -calt, -liga, -dlig
 mouse-hide-while-typing = true
 macos-titlebar-proxy-icon = hidden

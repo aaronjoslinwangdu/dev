@@ -29,6 +29,8 @@ copy_dir() {
   from=$1
   to=$2
 
+  mkdir -p "$to"
+
   pushd "$from" > /dev/null || exit
 
   dirs=$(find . -mindepth 1 -maxdepth 1 -type d)
@@ -82,11 +84,13 @@ echo "===== dotfiles.sh ====="
 copy_dir .config ~/.config
 copy_file .tmux.conf ~
 copy_dir .hammerspoon ~
+copy_file .ideavimrc ~
 replace_and_append_delimited_file .zshrc ~
 
 popd > /dev/null || exit
 
 if [[ $dry == "0" ]]; then
+  # TODO: perform these steps programmatically
   echo ""
   echo "To ensure that changes in dotfiles are active, do the following:"
   echo ""
@@ -94,6 +98,6 @@ if [[ $dry == "0" ]]; then
   echo "  - source ~/.zshrc"
   echo "  - cmd + shift + comma to reload ghostty config"
   echo "  - open hammerspoon and reload config"
-  echo "  - open rectangle and import config" # TODO: do this programmatically
+  echo "  - open rectangle and import config"
   echo ""
 fi
