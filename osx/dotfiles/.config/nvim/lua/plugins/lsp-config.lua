@@ -12,6 +12,7 @@ local LSP = {
 	GO = "gopls",
 	ELIXIR = "elixirls",
 	RUST = "rust_analyzer",
+  KOTLIN = "kotlin_lsp",
 }
 
 local SERVERS = utils.values(LSP)
