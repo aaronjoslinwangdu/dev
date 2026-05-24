@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -14,10 +16,7 @@ vim.opt.smartcase = true
 vim.opt.splitright = true
 vim.opt.confirm = true
 vim.opt.scrolloff = 10
-
-vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
-end)
+vim.opt.clipboard = "unnamedplus"
 
 vim.keymap.set("n", "<leader>Q", vim.cmd.copen, { silent = true })
 vim.keymap.set("n", "<leader>q", vim.cmd.cclose, { silent = true })
@@ -29,6 +28,11 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true })
 vim.keymap.set("n", "n", "nzzzv", { noremap = true })
 vim.keymap.set("n", "N", "Nzzzv", { noremap = true })
 vim.keymap.set("x", "<leader>p", '"_dP', { noremap = true })
+vim.keymap.set("n", "<leader>[", ":tabp", { noremap = true })
+vim.keymap.set("n", "<leader>]", ":tabn", { noremap = true })
+
+-- open currently selected lines in github
+vim.keymap.set({ "n", "v" }, "<leader>go", utils.open_selected_region_in_github, { noremap = true })
 
 -- yank relative path from home directory
 vim.keymap.set("n", "<leader>yp", function()
@@ -36,6 +40,7 @@ vim.keymap.set("n", "<leader>yp", function()
 	vim.fn.setreg("+", filepath) -- insert into the clipboard register
 end, { noremap = true, silent = true })
 
+-- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
 	callback = function()
