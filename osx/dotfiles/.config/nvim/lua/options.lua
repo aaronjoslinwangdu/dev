@@ -28,8 +28,8 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true })
 vim.keymap.set("n", "n", "nzzzv", { noremap = true })
 vim.keymap.set("n", "N", "Nzzzv", { noremap = true })
 vim.keymap.set("x", "<leader>p", '"_dP', { noremap = true })
-vim.keymap.set("n", "<leader>[", ":tabp", { noremap = true })
-vim.keymap.set("n", "<leader>]", ":tabn", { noremap = true })
+vim.keymap.set("n", "<leader>[", ":tabp<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>]", ":tabn<CR>", { noremap = true, silent = true })
 
 -- open currently selected lines in github
 vim.keymap.set({ "n", "v" }, "<leader>go", utils.open_selected_region_in_github, { noremap = true })

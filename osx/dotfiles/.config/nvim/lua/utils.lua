@@ -21,6 +21,14 @@ function M.values(t)
   return values
 end
 
+function M.map(t, fn)
+  local mapped = {}
+  for _, v in pairs(t) do
+    table.insert(mapped, fn(v))
+  end
+  return mapped
+end
+
 function M.split(s, delimiter)
     local result = {};
     for match in (s..delimiter):gmatch("(.-)"..delimiter) do
@@ -29,7 +37,6 @@ function M.split(s, delimiter)
     return result;
 end
 
--- foo
 function M.open_selected_region_in_github()
   local remote = vim.fn.system("git config --get remote.origin.url")
   if remote == "" then

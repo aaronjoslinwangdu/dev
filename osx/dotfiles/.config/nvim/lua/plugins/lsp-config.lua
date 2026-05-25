@@ -1,21 +1,77 @@
 local utils = require("utils")
 
-local LSP = {
-	VIM = "vimls",
-	LUA = "lua_ls",
-	TYPESCRIPT = "ts_ls",
-	PYTHON = "basedpyright",
-	HTML = "html",
-	ESLINT = "eslint",
-	ASTRO = "astro",
-	CSS = "cssls",
-	GO = "gopls",
-	ELIXIR = "elixirls",
-	RUST = "rust_analyzer",
-  KOTLIN = "kotlin_lsp",
+-- per-server configurations
+local SERVERS = {
+	ASTRO = {
+		name = "astro",
+		extras = {
+			on_attach = function()
+				vim.cmd("let g:astro_typescript = 'enable'")
+			end,
+		},
+	},
+	CSS = { name = "cssls" },
+	ELIXIR = {
+		name = "elixirls",
+		extras = {
+			flags = {
+				debounce_text_changes = 150,
+			},
+			elixirLS = {
+				dialyzerEnabled = false,
+				fetchDeps = false,
+			},
+		},
+	},
+	ESLINT = { name = "eslint" },
+	GO = { name = "gopls" },
+	HTML = { name = "html" },
+	LUA = {
+		name = "lua_ls",
+		extras = {
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = {
+							"vim",
+						},
+					},
+				},
+			},
+		},
+	},
+	PYTHON = {
+		name = "basedpyright",
+		extras = {
+			root_markers = {
+				"pyrightconfig.json",
+				"pyproject.toml",
+			},
+			settings = {
+				pyright = {
+					disableOrganizeImports = true,
+				},
+				python = {
+					analysis = {
+						ignore = { "*" },
+					},
+				},
+			},
+		},
+	},
+	TYPESCRIPT = { name = "ts_ls" },
+	VIM = { name = "vimls" },
+	RUST = {
+		name = "rust_analyzer",
+		extras = {
+			rust_analyzer = {
+				cargo = {
+					features = "all",
+				},
+			},
+		},
+	},
 }
-
-local SERVERS = utils.values(LSP)
 
 return {
 	{
@@ -29,97 +85,36 @@ return {
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
-          LSP.VIM,
-          LSP.LUA,
-        },
+					SERVERS.VIM.name,
+					SERVERS.LUA.name,
+				},
 			})
 		end,
 	},
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			-- improved tooltip visuals for 'K'
 			vim.o.winborder = "single"
 			vim.keymap.set("n", "K", function()
 				vim.lsp.buf.hover({ border = "rounded" })
 			end)
 
-			-- lets language server know what capabilities the client supports
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-			-- handle how responses from language servers are displayed
-			local handlers = {
-				["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-				["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
-			}
-
-			-- language server agnostic configs
 			local defaults = {
-				capabilities = capabilities,
-				handlers = handlers,
-			}
-
-			-- language server specific configs, for more info look into the respective repos
-			local extras = {
-				[LSP.LUA] = {
-					settings = {
-						Lua = {
-							diagnostics = {
-								globals = {
-									"vim",
-								},
-							},
-						},
-					},
-				},
-				[LSP.PYTHON] = {
-					root_markers = {
-						"pyrightconfig.json",
-						"pyproject.toml",
-					},
-					settings = {
-						pyright = {
-							disableOrganizeImports = true,
-						},
-						python = {
-							analysis = {
-								ignore = { "*" },
-							},
-						},
-					},
-				},
-				[LSP.ASTRO] = {
-					on_attach = function()
-						vim.cmd("let g:astro_typescript = 'enable'")
-					end,
-				},
-				[LSP.ELIXIR] = {
-					flags = {
-						debounce_text_changes = 150,
-					},
-					elixirLS = {
-						dialyzerEnabled = false,
-						fetchDeps = false,
-					},
-				},
-				[LSP.RUST] = {
-					settings = {
-						[LSP.RUST] = {
-							cargo = {
-								features = "all",
-							},
-						},
-					},
+				capabilities = require("cmp_nvim_lsp").default_capabilities(),
+				handlers = {
+					["textDocument/hover"] = vim.lsp.buf.hover({ border = "rounded" }),
+					["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({ border = "rounded" }),
 				},
 			}
 
-			-- set up each language server
-			for _, server in ipairs(SERVERS) do
-				vim.lsp.config(server, utils.merge(defaults, extras[server]))
+			for _, server in pairs(SERVERS) do
+				local opts = utils.merge(defaults, server.extras or {})
+				vim.lsp.config(server.name, opts)
 			end
 
-			-- enable language servers
-			vim.lsp.enable(SERVERS)
+			vim.lsp.enable(utils.map(SERVERS, function(server)
+				return server.name
+			end))
 		end,
 	},
 }
