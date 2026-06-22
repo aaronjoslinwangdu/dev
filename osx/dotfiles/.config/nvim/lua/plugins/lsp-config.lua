@@ -10,6 +10,7 @@ local SERVERS = {
 			end,
 		},
 	},
+  C = { name = "clangd" },
 	CSS = { name = "cssls" },
 	ELIXIR = {
 		name = "elixirls",

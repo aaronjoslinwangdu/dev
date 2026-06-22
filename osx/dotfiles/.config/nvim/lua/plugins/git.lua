@@ -21,19 +21,19 @@ return {
 			map("n", "<leader>gh", gitsigns.preview_hunk_inline)
 		end,
 	},
-  {
-    "NeogitOrg/neogit",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
-      "ibhagwan/fzf-lua",
-    },
-    config = function()
-      local neogit = require("neogit")
-      neogit.setup({
-        disable_relative_line_numbers = false,
-      })
-      vim.keymap.set("n", "<leader>gg", neogit.open)
-    end
-  }
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"sindrets/diffview.nvim",
+			"ibhagwan/fzf-lua",
+		},
+		config = function()
+			local neogit = require("neogit")
+			neogit.setup({
+				disable_relative_line_numbers = false,
+			})
+			vim.keymap.set("n", "<leader>gg", neogit.open)
+		end,
+	},
 }
