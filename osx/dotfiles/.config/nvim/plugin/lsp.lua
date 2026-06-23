@@ -74,48 +74,39 @@ local SERVERS = {
 	},
 }
 
-return {
-	{
-		"williamboman/mason.nvim",
-		config = function()
-			require("mason").setup()
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					SERVERS.VIM.name,
-					SERVERS.LUA.name,
-				},
-			})
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			vim.o.winborder = "single"
-			vim.keymap.set("n", "K", function()
-				vim.lsp.buf.hover({ border = "rounded" })
-			end)
+vim.pack.add({
+  "https://github.com/williamboman/mason.nvim",
+  "https://github.com/williamboman/mason-lspconfig.nvim",
+  "https://github.com/neovim/nvim-lspconfig",
+})
 
-			local defaults = {
-				capabilities = require("cmp_nvim_lsp").default_capabilities(),
-				handlers = {
-					["textDocument/hover"] = vim.lsp.buf.hover({ border = "rounded" }),
-					["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({ border = "rounded" }),
-				},
-			}
+require("mason").setup()
 
-			for _, server in pairs(SERVERS) do
-				local opts = utils.merge(defaults, server.extras or {})
-				vim.lsp.config(server.name, opts)
-			end
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    SERVERS.VIM.name,
+    SERVERS.LUA.name,
+  },
+})
 
-			vim.lsp.enable(utils.map(SERVERS, function(server)
-				return server.name
-			end))
-		end,
-	},
+vim.o.winborder = "single"
+vim.keymap.set("n", "K", function()
+  vim.lsp.buf.hover({ border = "rounded" })
+end)
+
+local defaults = {
+  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+  handlers = {
+    ["textDocument/hover"] = vim.lsp.buf.hover({ border = "rounded" }),
+    ["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({ border = "rounded" }),
+  },
 }
+
+for _, server in pairs(SERVERS) do
+  local opts = utils.merge(defaults, server.extras or {})
+  vim.lsp.config(server.name, opts)
+end
+
+vim.lsp.enable(utils.map(SERVERS, function(server)
+  return server.name
+end))
