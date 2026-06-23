@@ -1,6 +1,13 @@
+-- TODO: migrate to built-in LSP features
+vim.pack.add({
+  "https://www.github.com/williamboman/mason.nvim",
+  "https://www.github.com/williamboman/mason-lspconfig.nvim",
+  "https://www.github.com/neovim/nvim-lspconfig",
+})
+
 local utils = require("utils")
 
--- per-server configurations
+-- TODO: just use the lsp name as the key
 local SERVERS = {
 	ASTRO = {
 		name = "astro",
@@ -74,48 +81,33 @@ local SERVERS = {
 	},
 }
 
-return {
-	{
-		"williamboman/mason.nvim",
-		config = function()
-			require("mason").setup()
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					SERVERS.VIM.name,
-					SERVERS.LUA.name,
-				},
-			})
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			vim.o.winborder = "single"
-			vim.keymap.set("n", "K", function()
-				vim.lsp.buf.hover({ border = "rounded" })
-			end)
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    SERVERS.VIM.name,
+    SERVERS.LUA.name,
+  },
+})
 
-			local defaults = {
-				capabilities = require("cmp_nvim_lsp").default_capabilities(),
-				handlers = {
-					["textDocument/hover"] = vim.lsp.buf.hover({ border = "rounded" }),
-					["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({ border = "rounded" }),
-				},
-			}
-
-			for _, server in pairs(SERVERS) do
-				local opts = utils.merge(defaults, server.extras or {})
-				vim.lsp.config(server.name, opts)
-			end
-
-			vim.lsp.enable(utils.map(SERVERS, function(server)
-				return server.name
-			end))
-		end,
-	},
+local defaults = {
+  -- TODO: this is not great, look into it
+  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+  handlers = {
+    ["textDocument/hover"] = vim.lsp.buf.hover({ border = "rounded" }),
+    ["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({ border = "rounded" }),
+  },
 }
+
+for _, server in pairs(SERVERS) do
+  local opts = utils.merge(defaults, server.extras or {})
+  vim.lsp.config(server.name, opts)
+end
+
+vim.lsp.enable(utils.map(SERVERS, function(server)
+  return server.name
+end))
+
+vim.o.winborder = "single"
+vim.keymap.set("n", "K", function()
+  vim.lsp.buf.hover({ border = "rounded" })
+end)
