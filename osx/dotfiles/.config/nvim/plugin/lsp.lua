@@ -1,6 +1,13 @@
+-- TODO: migrate to built-in LSP features
+vim.pack.add({
+  "https://www.github.com/williamboman/mason.nvim",
+  "https://www.github.com/williamboman/mason-lspconfig.nvim",
+  "https://www.github.com/neovim/nvim-lspconfig",
+})
+
 local utils = require("utils")
 
--- per-server configurations
+-- TODO: just use the lsp name as the key
 local SERVERS = {
 	ASTRO = {
 		name = "astro",
@@ -74,14 +81,7 @@ local SERVERS = {
 	},
 }
 
-vim.pack.add({
-  "https://github.com/williamboman/mason.nvim",
-  "https://github.com/williamboman/mason-lspconfig.nvim",
-  "https://github.com/neovim/nvim-lspconfig",
-})
-
 require("mason").setup()
-
 require("mason-lspconfig").setup({
   ensure_installed = {
     SERVERS.VIM.name,
@@ -89,12 +89,8 @@ require("mason-lspconfig").setup({
   },
 })
 
-vim.o.winborder = "single"
-vim.keymap.set("n", "K", function()
-  vim.lsp.buf.hover({ border = "rounded" })
-end)
-
 local defaults = {
+  -- TODO: this is not great, look into it
   capabilities = require("cmp_nvim_lsp").default_capabilities(),
   handlers = {
     ["textDocument/hover"] = vim.lsp.buf.hover({ border = "rounded" }),
@@ -110,3 +106,8 @@ end
 vim.lsp.enable(utils.map(SERVERS, function(server)
   return server.name
 end))
+
+vim.o.winborder = "single"
+vim.keymap.set("n", "K", function()
+  vim.lsp.buf.hover({ border = "rounded" })
+end)

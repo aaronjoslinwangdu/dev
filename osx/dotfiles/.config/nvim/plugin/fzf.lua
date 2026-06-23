@@ -1,7 +1,6 @@
 vim.pack.add({
-	"https://github.com/nvim-tree/nvim-web-devicons",
-	"https://github.com/ibhagwan/fzf-lua",
-  "https://github.com/stevearc/oil.nvim",
+  "https://www.github.com/nvim-tree/nvim-web-devicons", -- dependency
+	"https://www.github.com/ibhagwan/fzf-lua",
 })
 
 local fzf = require("fzf-lua")
@@ -43,15 +42,3 @@ vim.keymap.set("n", "<leader>ca", fzf.lsp_code_actions)
 vim.keymap.set("n", "<leader>fu", fzf.lsp_references)
 vim.keymap.set("n", "gd", fzf.lsp_definitions)
 vim.keymap.set("n", "gt", fzf.lsp_typedefs)
-
-local oil = require("oil")
-oil.setup({
-	view_options = {
-		show_hidden = true,
-	},
-	lsp_file_methods = {
-		timeout_ms = 5000,
-	},
-})
-
-vim.keymap.set("n", "-", oil.open)

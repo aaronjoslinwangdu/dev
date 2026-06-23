@@ -1,8 +1,7 @@
+-- TODO: migrate to built-in LSP features
 vim.pack.add({
   "https://www.github.com/hrsh7th/cmp-nvim-lsp",
   "https://www.github.com/hrsh7th/nvim-cmp",
-  "https://github.com/windwp/nvim-ts-autotag",
-  "https://github.com/windwp/nvim-autopairs",
 })
 
 local cmp = require("cmp")
@@ -21,10 +20,3 @@ cmp.setup({
     documentation = cmp.config.window.bordered(),
   },
 })
-
-require("nvim-autopairs").setup({
-  event = "InsertEnter",
-  config = true,
-})
-
-require("nvim-ts-autotag").setup()
