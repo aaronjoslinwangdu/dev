@@ -13,14 +13,27 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true })
 vim.keymap.set("n", "n", "nzzzv", { noremap = true })
 vim.keymap.set("n", "N", "Nzzzv", { noremap = true })
 vim.keymap.set("x", "<leader>p", '"_dP', { noremap = true })
-vim.keymap.set("n", "<leader>[", ":tabp<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>]", ":tabn<CR>", { noremap = true, silent = true })
 
--- open currently selected lines in github
-vim.keymap.set({ "n", "v" }, "<leader>go", utils.open_selected_region_in_github, { noremap = true })
+vim.keymap.set({ "n", "v" }, "<leader>go", utils.open_selected_region_in_github, {
+	desc = "Open currently selected lines in GitHub.",
+	noremap = true,
+})
 
--- yank relative path from home directory
-vim.keymap.set("n", "<leader>yp", function()
-  local filepath = vim.fn.expand("%:~") -- current path relative to home directory
-  vim.fn.setreg("+", filepath)         -- insert into the clipboard register
-end, { noremap = true, silent = true })
+vim.keymap.set(
+	"n",
+	"<leader>yp",
+	utils.yank_path,
+	{ desc = "Yank relative path from home directory.", noremap = true, silent = true }
+)
+
+vim.keymap.set("n", "<leader>o", function()
+	utils.insert_lines(0)
+end, { desc = "Insert lines below", silent = true })
+
+vim.keymap.set("n", "<leader>O", function()
+	utils.insert_lines(1)
+end, { desc = "Insert lines above", silent = true })
+
+vim.keymap.set("n", "<leader>;", "A;<Esc>", { desc = "Insert semicolon at end of line.", silent = true })
+vim.keymap.set("n", "<leader>,", "A,<Esc>", { desc = "Insert comma at end of line.", silent = true })
