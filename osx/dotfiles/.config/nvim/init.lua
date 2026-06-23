@@ -1,2 +1,2 @@
-require("keymaps")
 require("options")
+require("keymaps")

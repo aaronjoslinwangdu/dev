@@ -1,5 +1,8 @@
 local utils = require("utils")
 
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 vim.keymap.set("n", "<leader>Q", vim.cmd.copen, { silent = true })
 vim.keymap.set("n", "<leader>q", vim.cmd.cclose, { silent = true })
 vim.keymap.set("n", "<Esc>", vim.cmd.nohlsearch, { silent = true })
