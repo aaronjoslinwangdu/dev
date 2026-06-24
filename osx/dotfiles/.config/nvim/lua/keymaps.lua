@@ -29,11 +29,11 @@ vim.keymap.set(
 
 vim.keymap.set("n", "<leader>o", function()
 	utils.insert_lines(0)
-end, { desc = "Insert lines below", silent = true })
+end, { desc = "Insert lines below.", silent = true })
 
 vim.keymap.set("n", "<leader>O", function()
 	utils.insert_lines(1)
-end, { desc = "Insert lines above", silent = true })
+end, { desc = "Insert lines above.", silent = true })
 
 vim.keymap.set("n", "<leader>;", "A;<Esc>", { desc = "Insert semicolon at end of line.", silent = true })
 vim.keymap.set("n", "<leader>,", "A,<Esc>", { desc = "Insert comma at end of line.", silent = true })
