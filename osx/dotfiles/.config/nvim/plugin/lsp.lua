@@ -1,23 +1,16 @@
 -- TODO: migrate to built-in LSP features
 vim.pack.add({
-  "https://www.github.com/williamboman/mason.nvim",
-  "https://www.github.com/williamboman/mason-lspconfig.nvim",
-  "https://www.github.com/neovim/nvim-lspconfig",
+	"https://www.github.com/williamboman/mason.nvim",
+	"https://www.github.com/williamboman/mason-lspconfig.nvim",
+	"https://www.github.com/neovim/nvim-lspconfig",
 })
 
 local utils = require("utils")
 
 -- TODO: just use the lsp name as the key
 local SERVERS = {
-	ASTRO = {
-		name = "astro",
-		extras = {
-			on_attach = function()
-				vim.cmd("let g:astro_typescript = 'enable'")
-			end,
-		},
-	},
-  C = { name = "clangd" },
+	ASTRO = { name = "astro" },
+	C = { name = "clangd" },
 	CSS = { name = "cssls" },
 	ELIXIR = {
 		name = "elixirls",
@@ -83,31 +76,31 @@ local SERVERS = {
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = {
-    SERVERS.VIM.name,
-    SERVERS.LUA.name,
-  },
+	ensure_installed = {
+		SERVERS.VIM.name,
+		SERVERS.LUA.name,
+	},
 })
 
 local defaults = {
-  -- TODO: this is not great, look into it
-  capabilities = require("cmp_nvim_lsp").default_capabilities(),
-  handlers = {
-    ["textDocument/hover"] = vim.lsp.buf.hover({ border = "rounded" }),
-    ["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({ border = "rounded" }),
-  },
+	-- TODO: this is not great, look into it
+	capabilities = require("cmp_nvim_lsp").default_capabilities(),
+	handlers = {
+		["textDocument/hover"] = vim.lsp.buf.hover({ border = "rounded" }),
+		["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({ border = "rounded" }),
+	},
 }
 
 for _, server in pairs(SERVERS) do
-  local opts = utils.merge(defaults, server.extras or {})
-  vim.lsp.config(server.name, opts)
+	local opts = utils.merge(defaults, server.extras or {})
+	vim.lsp.config(server.name, opts)
 end
 
 vim.lsp.enable(utils.map(SERVERS, function(server)
-  return server.name
+	return server.name
 end))
 
 vim.o.winborder = "single"
 vim.keymap.set("n", "K", function()
-  vim.lsp.buf.hover({ border = "rounded" })
+	vim.lsp.buf.hover({ border = "rounded" })
 end)
