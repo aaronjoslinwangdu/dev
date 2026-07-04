@@ -13,6 +13,14 @@ function M.merge(t1, t2)
 	return merged
 end
 
+function M.keys(t)
+	local keys = {}
+	for k, _ in pairs(t) do
+		table.insert(keys, k)
+	end
+	return keys
+end
+
 function M.values(t)
 	local values = {}
 	for _, v in pairs(t) do

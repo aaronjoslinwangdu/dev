@@ -10,6 +10,7 @@ conform.setup({
 		html = { "prettierd", "prettier" },
 		css = { "prettierd", "prettier" },
 		cpp = { "clang-format" },
+		c = { "clang-format" },
 		javascript = { "prettierd", "prettier" },
 		javascriptreact = { "prettierd", "prettier" },
 		typescript = { "prettierd", "prettier" },

@@ -6,6 +6,8 @@ vim.cmd("set number relativenumber")
 vim.cmd("set inccommand=split")
 vim.cmd("set noswf")
 
+vim.g.c_syntax_for_h = 1
+
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.splitright = true
