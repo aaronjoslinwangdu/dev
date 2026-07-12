@@ -4,7 +4,8 @@ vim.pack.add({
 
 require("lualine").setup({
 	options = {
-		theme = "jellybeans",
+		-- theme = "jellybeans",
+    theme = "everforest",
 	},
 	sections = {
 		lualine_a = { "mode" },
