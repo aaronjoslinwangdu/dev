@@ -14,6 +14,7 @@ vim.opt.splitright = true
 vim.opt.confirm = true
 vim.opt.scrolloff = 10
 vim.opt.clipboard = "unnamedplus"
+vim.opt.winborder = "single"
 
 
 -- highlight on yank
